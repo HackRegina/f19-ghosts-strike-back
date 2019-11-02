@@ -81,9 +81,7 @@ class ReportNeedles extends ComponentBase
         $this->addJs('/modules/backend/assets/js/october-min.js', 'core');
         $this->addJs('/modules/system/assets/js/lang/lang.en.js', 'core'); // required for datepicker
 
-        // This CSS should be scoped instead
-        $this->addCss('/modules/backend/assets/css/october.css', 'core');
-        $this->addCss('/modules/system/assets/ui/storm.css', 'core');
+        $this->addCss('/plugins/luketowers/apss/assets/css/reportneedles.css');
 
         foreach ($this->formController->getAssetPaths() as $type => $assets) {
             foreach ($assets as $asset){

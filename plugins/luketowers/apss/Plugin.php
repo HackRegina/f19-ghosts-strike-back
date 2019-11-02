@@ -3,6 +3,7 @@
 use Event;
 use Backend;
 use System\Classes\PluginBase;
+use System\Classes\CombineAssets;
 
 /**
  * APSS Plugin Information File
@@ -44,6 +45,13 @@ class Plugin extends PluginBase
                 <meta name="msapplication-config" content="/plugins/luketowers/apss/assets/favicon/browserconfig.xml">
                 <meta name="theme-color" content="#ffffff">
             ';
+        });
+
+        /*
+         * Register asset bundles
+         */
+        CombineAssets::registerCallback(function ($combiner) {
+            $combiner->registerBundle('$/luketowers/apss/assets/less/reportneedles.less');
         });
     }
 
