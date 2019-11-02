@@ -41,7 +41,8 @@
 
         var map = new maps.Map(this.$el[0], {
             zoom: 18,
-            center: pinLocation
+            center: pinLocation,
+            streetViewControl: false
         });
 
         var marker = new maps.Marker({
@@ -54,7 +55,8 @@
         var self = this;
 
         this.locationPicker = new locationPicker(this.$el.attr('id'), {}, {
-            zoom: 18
+            zoom: 18,
+            streetViewControl: false
         });
 
         this.$el.parents('form').on('changedLocation', function () {
