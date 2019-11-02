@@ -1,6 +1,7 @@
 <?php namespace LukeTowers\GMapsLocationPicker\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
+use RainLab\Location\Models\Setting;
 
 /**
  * GMapsLocationPicker Form Widget
@@ -81,7 +82,8 @@ class GMapsLocationPicker extends FormWidgetBase
      */
     public function loadAssets()
     {
-        $this->addJs('//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCSqhctgz6f-TKLXg66tyTWTP3Ba9UFQXo');
+        $apiKey = Setting::get('google_maps_key');
+        $this->addJs('//maps.googleapis.com/maps/api/js?libraries=places&key='.$apiKey);
         $this->addJs('https://unpkg.com/location-picker/dist/location-picker.min.js');
 
 
