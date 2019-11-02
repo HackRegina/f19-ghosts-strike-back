@@ -40,7 +40,7 @@
         var pinLocation = {lat: this.options.lat, lng: this.options.lng};
 
         var map = new maps.Map(this.$el[0], {
-            zoom: 21,
+            zoom: 20,
             center: pinLocation,
             streetViewControl: false,
             mapTypeId: 'satellite'
@@ -56,7 +56,7 @@
         var self = this;
 
         this.locationPicker = new locationPicker(this.$el.attr('id'), {}, {
-            zoom: 21,
+            zoom: 20,
             streetViewControl: false,
             mapTypeId: 'satellite'
         });
