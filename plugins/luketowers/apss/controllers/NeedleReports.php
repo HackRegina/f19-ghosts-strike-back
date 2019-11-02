@@ -22,4 +22,13 @@ class NeedleReports extends Controller
 
         BackendMenu::setContext('LukeTowers.APSS', 'apss', 'needlereports');
     }
+
+    public function runAjaxHandler($handler)
+    {
+        if (is_null($this->params)) {
+            $this->params = [];
+        }
+
+        return parent::runAjaxHandler($handler);
+    }
 }

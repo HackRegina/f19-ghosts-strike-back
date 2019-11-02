@@ -33,12 +33,12 @@ class NeedleReport extends Model
 
     public function getLatitudeAttribute()
     {
-        return $this->data['use_map'] ? @$this->data['map_location']['lat'] : @$this->data['location']['lat'];
+        return @$this->data['location']['lat'];
     }
 
     public function getLongitudeAttribute()
     {
-        return $this->data['use_map'] ? @$this->data['map_location']['lng'] : @$this->data['location']['lng'];
+        return @$this->data['location']['lng'];
     }
 
     public function getDirectionsUrl()

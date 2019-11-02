@@ -1,7 +1,7 @@
 /*
  * GMaps Location Picker plugin.
  */
-+function ($) { "use strict";
++function ($, locationPicker, maps) { "use strict";
 
     var Base = $.oc.foundation.base,
         BaseProto = Base.prototype
@@ -39,12 +39,12 @@
 
         var pinLocation = {lat: this.options.lat, lng: this.options.lng};
 
-        var map = new google.maps.Map(this.$el[0], {
+        var map = new maps.Map(this.$el[0], {
             zoom: 18,
             center: pinLocation
         });
 
-        var marker = new google.maps.Marker({
+        var marker = new maps.Marker({
             position: pinLocation,
             map: map
         });
@@ -53,16 +53,24 @@
     GMapsLocationPicker.prototype.init = function() {
         var self = this;
 
-        this.locationPicker = new window.locationPicker(this.$el.attr('id'), {}, {
+        this.locationPicker = new locationPicker(this.$el.attr('id'), {}, {
             zoom: 18
         });
 
-        google.maps.event.addListener(this.locationPicker.map, 'idle', function (event) {
+        this.$el.parents('form').on('changedLocation', function () {
+            self.locationPicker.setLocation(self.$lat.val(), self.$lng.val());
+        });
+
+        maps.event.addListener(this.locationPicker.map, 'idle', function (event) {
             // Get current location and show it in HTML
             var location = self.locationPicker.getMarkerPosition();
 
+            self.updatingMarker = true;
+
             self.$lat.val(location.lat);
             self.$lng.val(location.lng);
+
+            self.updatingMarker = false;
 
             console.log('The chosen location is ' + location.lat + ',' + location.lng);
         });
@@ -102,4 +110,4 @@
     $(document).render(function() {
         $('[data-control="gmaps-location-picker"]').gMapsLocationPicker()
     })
-}(window.jQuery);
+}(window.jQuery, locationPicker, google.maps);

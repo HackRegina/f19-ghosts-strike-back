@@ -4,70 +4,19 @@
 
 fields:
 
-    data[use_map]:
-        label: Use my current location
-        type: switch
-        on: Yes
-        off: No
-        default: true
+    _addressfinder:
+        label: Start typing to search for an address
+        type: addressfinder
+        countryRestriction: 'ca'
+        attributes:
+            data-input-latitude: '#GMapsLocationPicker-formDataLocation-lat-data-location'
+            data-input-longitude: '#GMapsLocationPicker-formDataLocation-lng-data-location'
 
-    data[map_location]:
+    data[location]:
         label: Drag the map to position the marker as close as possible to the needles
         type: gmaps-location-picker
         span: full
-        trigger:
-            action: show
-            field: data[use_map]
-            condition: checked
 
-    data[location]:
-        type: nestedform
-        span: full
-        trigger:
-            action: hide
-            field: data[use_map]
-            condition: checked
-        form:
-            fields:
-                _addressfinder:
-                    label: Start typing to search for an address
-                    type: addressfinder
-                    countryRestriction: 'ca'
-                    fieldMap:
-                        city: city
-                        # zip: postalcode
-                        street: line_1
-                        state: province
-                        latitude: lat
-                        longitude: lng
-                line_1:
-                    label: 'Street Address'
-                    span: full
-                    placeholder: 123 Drury Lane
-                    required: true
-                city:
-                    label: City
-                    span: left
-                    default: Regina
-                    required: true
-                province:
-                    label: Province
-                    span: right
-                    default: Saskatchewan
-                    required: true
-                # postalcode:
-                #     label: Postal Code
-                #     span: left
-                #     placeholder: H0H 0H0
-                #     required: true
-                lat:
-                    label: Latitude
-                    span: left
-                    required: true
-                lng:
-                    label: Longitude
-                    span: right
-                    required: true
     photo:
         label: Picture (optional)
         type: fileupload

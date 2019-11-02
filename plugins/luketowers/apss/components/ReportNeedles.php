@@ -22,21 +22,17 @@ class ReportNeedles extends ComponentBase
         ];
     }
 
-    public function initFormController()
+    public function init()
     {
-        // Initialize the Request model
-        $model = new \LukeTowers\APSS\Models\NeedleReport;
-
-        // Build a backend form with the context of 'frontend'
-        $formController = new \LukeTowers\APSS\Controllers\NeedleReports();
-        $formController->initForm($model, 'frontend');
-        $formController->create('frontend');
-
-        $this->formController = $this->page['form'] = $formController;
+        $this->initFormController();
     }
 
-    public function onRun()
+    public function initFormController()
     {
+        if ($this->formController) {
+            return;
+        }
+
         // Register the form widgets:
         WidgetManager::instance()->registerFormWidgets(function ($manager) {
             $manager->registerFormWidget('Backend\FormWidgets\CodeEditor', 'codeeditor');
@@ -55,9 +51,31 @@ class ReportNeedles extends ComponentBase
             $manager->registerFormWidget('Backend\FormWidgets\NestedForm', 'nestedform');
         });
 
-        // Initialize the form controller
-        $this->initFormController();
+        // Initialize the Request model
+        $model = new \LukeTowers\APSS\Models\NeedleReport;
 
+        // Build a backend form with the context of 'frontend'
+        $formController = new \LukeTowers\APSS\Controllers\NeedleReports();
+        $formController->initForm($model, 'frontend');
+        $formController->create('frontend');
+
+        $this->formController = $this->page['form'] = $formController;
+
+        $aliasesToProxy = array_keys(get_object_vars($this->formController->widget));
+
+        $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) use ($aliasesToProxy) {
+            if (strpos($handler, '::')) {
+                list($componentAlias, $handlerName) = explode('::', $handler);
+
+                if (in_array($componentAlias, $aliasesToProxy)) {
+                    return $this->formController->runAjaxHandler($handler);
+                }
+            }
+        });
+    }
+
+    public function onRun()
+    {
         // Load the required assets
         $this->addJs('/modules/system/assets/ui/storm-min.js', 'core');
         $this->addJs('/modules/backend/assets/js/october-min.js', 'core');

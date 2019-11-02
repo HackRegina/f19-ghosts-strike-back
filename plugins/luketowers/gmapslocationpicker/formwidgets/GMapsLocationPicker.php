@@ -81,7 +81,7 @@ class GMapsLocationPicker extends FormWidgetBase
      */
     public function loadAssets()
     {
-        $this->addJs('https://maps.googleapis.com/maps/api/js?key=AIzaSyCSqhctgz6f-TKLXg66tyTWTP3Ba9UFQXo');
+        $this->addJs('//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCSqhctgz6f-TKLXg66tyTWTP3Ba9UFQXo');
         $this->addJs('https://unpkg.com/location-picker/dist/location-picker.min.js');
 
 
