@@ -3,6 +3,21 @@
 # ===================================
 
 columns:
-    id:
-        label: ID
+    created_at:
+        label: Submitted at
+        type: datetime
+    description:
+        label: Description
+    status:
+        label: Status
+    directions:
+        label: Directions
+        type: partial
+        path: $/luketowers/apss/models/needlereport/column.directions.htm
+        clickable: false
+    updated_at:
+        label: Last updated
+        type: datetime
+        invisible: true
         searchable: true
+        sortable: true

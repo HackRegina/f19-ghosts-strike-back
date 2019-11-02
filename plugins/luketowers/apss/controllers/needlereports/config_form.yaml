@@ -25,6 +25,7 @@ update:
     title: Edit Needle Report
     redirect: luketowers/apss/needlereports
     redirectClose: luketowers/apss/needlereports
+    form: $/luketowers/apss/models/needlereport/fields.update.yaml
 
 # Preview page
 preview:

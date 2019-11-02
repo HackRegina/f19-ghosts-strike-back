@@ -15,58 +15,44 @@ class NeedleReport extends Model
     public $table = 'luketowers_apss_needle_reports';
 
     /**
-     * @var array Guarded fields
-     */
-    protected $guarded = ['*'];
-
-    /**
-     * @var array Fillable fields
-     */
-    protected $fillable = [];
-
-    /**
      * @var array Validation rules for attributes
      */
     public $rules = [];
 
     /**
-     * @var array Attributes to be cast to native types
-     */
-    protected $casts = [];
-
-    /**
      * @var array Attributes to be cast to JSON
      */
-    protected $jsonable = [];
-
-    /**
-     * @var array Attributes to be appended to the API representation of the model (ex. toArray())
-     */
-    protected $appends = [];
-
-    /**
-     * @var array Attributes to be removed from the API representation of the model (ex. toArray())
-     */
-    protected $hidden = [];
-
-    /**
-     * @var array Attributes to be cast to Argon (Carbon) instances
-     */
-    protected $dates = [
-        'created_at',
-        'updated_at'
-    ];
+    protected $jsonable = ['data'];
 
     /**
      * @var array Relations
      */
-    public $hasOne = [];
-    public $hasMany = [];
-    public $belongsTo = [];
-    public $belongsToMany = [];
-    public $morphTo = [];
-    public $morphOne = [];
-    public $morphMany = [];
-    public $attachOne = [];
-    public $attachMany = [];
+    public $attachOne = [
+        'photo' => [\System\Models\File::class],
+    ];
+
+    public function getLatitudeAttribute()
+    {
+        return $this->data['use_map'] ? @$this->data['map_location']['lat'] : @$this->data['location']['lat'];
+    }
+
+    public function getLongitudeAttribute()
+    {
+        return $this->data['use_map'] ? @$this->data['map_location']['lng'] : @$this->data['location']['lng'];
+    }
+
+    public function getDirectionsUrl()
+    {
+        $lat = $this->latitude;
+        $lng = $this->longitude;
+
+        return "https://www.google.com/maps/dir/?api=1&destination=$lat,$lng";
+    }
+
+    public function beforeCreate()
+    {
+        $request = request();
+        $this->ip_address = $request->ip();
+        $this->data = array_merge($this->data, ['user_agent' => $request->header('User-Agent')]);
+    }
 }

@@ -3,6 +3,92 @@
 # ===================================
 
 fields:
-    id:
-        label: ID
-        disabled: true
+
+    data[use_map]:
+        label: Use my current location
+        type: switch
+        on: Yes
+        off: No
+        default: true
+
+    data[map_location]:
+        label: Drag the map to position the marker as close as possible to the needles
+        type: gmaps-location-picker
+        span: full
+        trigger:
+            action: show
+            field: data[use_map]
+            condition: checked
+
+    data[location]:
+        type: nestedform
+        span: full
+        trigger:
+            action: hide
+            field: data[use_map]
+            condition: checked
+        form:
+            fields:
+                _addressfinder:
+                    label: Start typing to search for an address
+                    type: addressfinder
+                    countryRestriction: 'ca'
+                    fieldMap:
+                        city: city
+                        # zip: postalcode
+                        street: line_1
+                        state: province
+                        latitude: lat
+                        longitude: lng
+                line_1:
+                    label: 'Street Address'
+                    span: full
+                    placeholder: 123 Drury Lane
+                    required: true
+                city:
+                    label: City
+                    span: left
+                    default: Regina
+                    required: true
+                province:
+                    label: Province
+                    span: right
+                    default: Saskatchewan
+                    required: true
+                # postalcode:
+                #     label: Postal Code
+                #     span: left
+                #     placeholder: H0H 0H0
+                #     required: true
+                lat:
+                    label: Latitude
+                    span: left
+                    required: true
+                lng:
+                    label: Longitude
+                    span: right
+                    required: true
+    photo:
+        label: Picture (optional)
+        type: fileupload
+        mode: image
+        span: left
+
+    description:
+        label: Description (optional)
+        span: right
+        type: textarea
+        placeholder: Needles are below a bush on the north east corner of the building
+        size: small
+
+    data[contact][email]:
+        label: Contact email (optional)
+        span: left
+        type: email
+        placeholder: bob@example.com
+
+    data[contact][phone]:
+        label: Cell phone (optional)
+        span: right
+        placeholder: 306-555-5555
+

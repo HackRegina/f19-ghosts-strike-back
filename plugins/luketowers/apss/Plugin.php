@@ -54,10 +54,18 @@ class Plugin extends PluginBase
      */
     public function registerComponents()
     {
-        return []; // Remove this line to activate
-
         return [
-            'LukeTowers\APSS\Components\MyComponent' => 'myComponent',
+            'LukeTowers\APSS\Components\ReportNeedles' => 'reportNeedles',
+        ];
+    }
+
+    /**
+     * Registers any RainLab.Pages Snippets
+     */
+    public function registerPageSnippets()
+    {
+        return [
+            'LukeTowers\APSS\Components\ReportNeedles' => 'reportNeedles',
         ];
     }
 
@@ -68,12 +76,10 @@ class Plugin extends PluginBase
      */
     public function registerPermissions()
     {
-        return []; // Remove this line to activate
-
         return [
-            'luketowers.apss.some_permission' => [
-                'tab' => 'APSS',
-                'label' => 'Some permission'
+            'luketowers.apss.manage_reports' => [
+                'tab' => 'Aids Program South Saskatchewan',
+                'label' => 'Manage reports'
             ],
         ];
     }
@@ -85,15 +91,22 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-        return []; // Remove this line to activate
-
         return [
             'apss' => [
                 'label'       => 'APSS',
-                'url'         => Backend::url('luketowers/apss/mycontroller'),
+                'url'         => Backend::url('luketowers/apss/needlereports'),
                 'icon'        => 'icon-leaf',
                 'permissions' => ['luketowers.apss.*'],
                 'order'       => 500,
+                'sideMenu'    => [
+                    'needlereports' => [
+                        'label'       => 'APSS',
+                        'url'         => Backend::url('luketowers/apss/needlereports'),
+                        'icon'        => 'icon-flag',
+                        'permissions' => ['luketowers.apss.*'],
+                        'order'       => 500,
+                    ],
+                ],
             ],
         ];
     }
