@@ -89,6 +89,9 @@
 .clockpicker-hours .clockpicker-tick.tick-inner {font-size:16px}
 .clockpicker-minutes .clockpicker-tick {font-size:16px}
 .reportneedles-container {border:1px solid rgba(0,0,0,0.1);background-color:#f2f2f2;border-radius:4px;padding:1em;margin:1em 0}
+.reportneedles-container label,
+.reportneedles-container input,
+.reportneedles-container button {font-size:16px !important}
 .reportneedles-container html {font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 .reportneedles-container body {margin:0}
 .reportneedles-container article,
