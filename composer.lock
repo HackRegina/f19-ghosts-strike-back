@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4de74028649cdac31f50623c4124dcdc",
+    "content-hash": "bd134b8a1605875d2156fcf9cdd07ff5",
     "packages": [
         {
             "name": "composer/installers",
@@ -2436,6 +2436,50 @@
                 "shell"
             ],
             "time": "2018-10-13T15:16:03+00:00"
+        },
+        {
+            "name": "rainlab/location-plugin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rainlab/location-plugin.git",
+                "reference": "20f5add2ccbb8da9a3918040874f994434dc7d82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rainlab/location-plugin/zipball/20f5add2ccbb8da9a3918040874f994434dc7d82",
+                "reference": "20f5add2ccbb8da9a3918040874f994434dc7d82",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.5.9"
+            },
+            "type": "october-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Bobkov",
+                    "email": "aleksey.bobkov@gmail.com",
+                    "role": "Co-founder"
+                },
+                {
+                    "name": "Samuel Georges",
+                    "email": "daftspunky@gmail.com",
+                    "role": "Co-founder"
+                }
+            ],
+            "description": "Location plugin for October CMS",
+            "homepage": "https://octobercms.com/plugin/rainlab-location",
+            "keywords": [
+                "location",
+                "october",
+                "octobercms"
+            ],
+            "time": "2019-07-29T22:53:29+00:00"
         },
         {
             "name": "rainlab/pages-plugin",
@@ -5476,6 +5520,7 @@
         "laravel/framework": 20,
         "wikimedia/composer-merge-plugin": 20,
         "rainlab/pages-plugin": 20,
+        "rainlab/location-plugin": 20,
         "luketowers/oc-twigpcre-plugin": 20,
         "luketowers/oc-essentialvars-plugin": 20
     },

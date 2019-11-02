@@ -31,18 +31,7 @@
                         </a>
                     </div>
 
-                    <div class="menu-button mobile">
-                        <a class="btn-menu" href="javascript:;">
-                            <div class="btn-menu-bar-container">
-                                <span class="btn-menu-bar"></span>
-                                <span class="btn-menu-bar"></span>
-                                <span class="btn-menu-bar"></span>
-                            </div>
-                            <span class="btn-menu-text">Menu</span>
-                        </a>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="desktop-navigation desktop">
+                    <div class="desktop-navigation">
                         <nav class="desktop-main-navigation">
                             <ul class="main-menu">
                                 {{ navItems | raw }}
@@ -51,16 +40,8 @@
                     </div>
                 </header>
             </div>
-            <div class="enable-site-trigger"></div>
-            <div class="navigation_container mobile">
-                <nav class="mobile-main-navigation">
-                    <ul id="menu-main-menu" class="main-menu">
-                        {{ navItems | raw }}
-                    </ul>
-                </nav>
-            </div>
 
-            {% set headerImage = 'assets/images/default-header.png' | theme %}
+            {% set headerImage = 'assets/images/default-header.jpg' | theme %}
             {% if this.page.featuredImage is not empty %}
                 {% set headerImage = this.page.featuredImage %}
             {% endif %}

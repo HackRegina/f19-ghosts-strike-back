@@ -1,0 +1,32 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    city:
+        label: City
+        type: group
+        conditions: city in (:filtered)
+        modelClass: LukeTowers\APSS\Models\NeedleReport
+        options: getCityOptions
+
+    province:
+        label: Province
+        type: group
+        conditions: province in (:filtered)
+        modelClass: LukeTowers\APSS\Models\NeedleReport
+        options: getProvinceOptions
+
+    status:
+        label: Status
+        type: group
+        conditions: status in (:filtered)
+        options:
+            succcessfull: Successfull
+            unsuccessfull: Unsuccessfull
+
+    submitted_at:
+        label: Submitted at
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'

@@ -1,0 +1,33 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Needle Report
+
+# Model Form Field configuration
+form: $/luketowers/apss/models/needlereport/fields.yaml
+
+# Model Class name
+modelClass: LukeTowers\APSS\Models\NeedleReport
+
+# Default redirect location
+defaultRedirect: luketowers/apss/needlereports
+
+# Create page
+create:
+    title: Create Report
+    redirect: luketowers/apss/needlereports/update/:id
+    redirectClose: luketowers/apss/needlereports
+
+# Update page
+update:
+    title: Report
+    redirect: luketowers/apss/needlereports
+    redirectClose: luketowers/apss/needlereports
+    form: $/luketowers/apss/models/needlereport/fields.update.yaml
+
+# Preview page
+preview:
+    title: View Report
+    form: $/luketowers/apss/models/needlereport/fields.preview.yaml

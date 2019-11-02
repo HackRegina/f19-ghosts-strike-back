@@ -1,0 +1,75 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+
+    needles_collected:
+        label: Number of needles collected
+        type: number
+        min: 0
+        step: 1
+        required: true
+        span: left
+
+    _btns:
+        label: Actions
+        type: partial
+        path: $/luketowers/apss/models/needlereport/field.btns.htm
+        span: right
+
+tabs:
+    fields:
+        _location:
+            label: Location
+            tab: Map
+            type: gmaps-location-picker
+            disabled: true
+            span: full
+            lat: latitude
+            lng: longitude
+
+        photo:
+            label: Picture (optional)
+            tab: Description
+            type: fileupload
+            mode: image
+            span: left
+            disabled: true
+
+        description:
+            label: Description (optional)
+            tab: Description
+            span: right
+            type: textarea
+            disabled: true
+            placeholder: Needles are below a bush on the north east corner of the building
+            size: small
+
+        data[contact][email]:
+            tab: Contact
+            label: Contact email (optional)
+            span: left
+            type: email
+            disabled: true
+            placeholder: bob@example.com
+
+        data[contact][phone]:
+            label: Cell phone (optional)
+            tab: Contact
+            span: right
+            disabled: true
+            placeholder: 306-555-5555
+
+        ip_address:
+            label: IP Address
+            span: left
+            disabled: true
+            tab: Contact
+
+        data[user_agent]:
+            label: User Agent
+            span: right
+            disabled: true
+            tab: Contact
+

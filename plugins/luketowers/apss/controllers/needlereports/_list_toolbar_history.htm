@@ -1,0 +1,15 @@
+<?php
+    $successful = \LukeTowers\APSS\Models\NeedleReport::where('status', 'successful')->count();
+    $unsuccessful = \LukeTowers\APSS\Models\NeedleReport::where('status', 'unsuccessful')->count();
+?>
+
+<div class="scoreboard" style="margin-bottom: -25px">
+    <div data-control="toolbar">
+        <div class="scoreboard-item control-chart" data-control="chart-pie">
+            <ul>
+                <li data-color="#95b753">Successful <span><?= $successful; ?></span></li>
+                <li data-color="#cc3300">Unsuccessful <span><?= $unsuccessful; ?></span></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,4 @@
 1.0.1: First version of APSS
+1.0.2:
+    - Add the needle reports table
+    - create_needle_reports_table.php

@@ -392,7 +392,7 @@ return [
     |
     */
 
-    'forceBytecodeInvalidation' => true,
+    'forceBytecodeInvalidation' => false,
 
     /*
     |--------------------------------------------------------------------------

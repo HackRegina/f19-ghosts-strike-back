@@ -2,7 +2,11 @@
 
 use Event;
 use Backend;
+use BackendAuth;
 use System\Classes\PluginBase;
+use System\Classes\CombineAssets;
+use Backend\Models\User as BackendUserModel;
+use Backend\Controllers\Users as BackendUserController;
 
 /**
  * APSS Plugin Information File
@@ -45,6 +49,87 @@ class Plugin extends PluginBase
                 <meta name="theme-color" content="#ffffff">
             ';
         });
+
+        /*
+         * Register asset bundles
+         */
+        CombineAssets::registerCallback(function ($combiner) {
+            $combiner->registerBundle('$/luketowers/apss/assets/less/reportneedles.less');
+        });
+
+        $user = BackendAuth::getUser();
+        BackendUserModel::extend(function($model) use ($user) {
+            $model->bindEvent('model.beforeValidate', function () use ($model) {
+                if (!$model->isSuperUser()) {
+                   $model->login = $model->email;
+                }
+            });
+        });
+
+        // Disable the groups functionality in the user lists page
+        BackendUserController::extend(function ($controller) {
+            $controller->listConfig = $controller->makeConfig($controller->listConfig);
+            $controller->listConfig->toolbar = array_merge($controller->listConfig->toolbar, ['buttons' => '$/luketowers/apss/partials/toolbar.users.htm']);
+        });
+
+        BackendUserController::extendFormFields(function($form, $model, $context) {
+            if (!($model instanceof BackendUserModel)) {
+                return;
+            }
+            $user = BackendAuth::getUser();
+
+            // Disable the groups functionality
+            $form->removeField('groups');
+
+            // Remove the login field functionality
+            if (!$user->isSuperUser()) {
+                $form->removeField('login');
+                $form->getFields()['email']->span = 'full';
+                $form->removeField('permissions');
+            }
+        });
+
+        BackendUserController::extendListColumns(function ($list, $model) {
+            if (!($model instanceof BackendUserModel)) {
+                return;
+            }
+
+            $user = BackendAuth::getUser();
+
+            // Remove the login column for non superusers
+            if (!$user->isSuperUser()) {
+                $list->removeColumn('login');
+                $list->removeColumn('is_superuser');
+            }
+
+            // Disable the groups functionality
+            $list->removeColumn('groups');
+
+            // Remove role & last login columns to read-add at the end
+            $list->removeColumn('last_login');
+            $list->removeColumn('role');
+
+            $list->addColumns([
+                'full_name'  => [
+                    'label'      => 'backend::lang.user.full_name',
+                    'select'     => "concat(first_name, ' ', last_name)",
+                    'searchable' => true,
+                ],
+                'role'       => [
+                    'label'      => 'backend::lang.user.role.name',
+                    'relation'   => 'role',
+                    'select'     => 'name',
+                    'sortable'   => true,
+                    'searchable' => true,
+                ],
+                'last_login' => [
+                    'label'      => 'backend::lang.user.last_login',
+                    'searchable' => true,
+                    'type'       => 'datetime',
+                    'invisible'  => true,
+                ],
+            ]);
+        });
     }
 
     /**
@@ -54,10 +139,18 @@ class Plugin extends PluginBase
      */
     public function registerComponents()
     {
-        return []; // Remove this line to activate
-
         return [
-            'LukeTowers\APSS\Components\MyComponent' => 'myComponent',
+            'LukeTowers\APSS\Components\ReportNeedles' => 'reportNeedles',
+        ];
+    }
+
+    /**
+     * Registers any RainLab.Pages Snippets
+     */
+    public function registerPageSnippets()
+    {
+        return [
+            'LukeTowers\APSS\Components\ReportNeedles' => 'reportNeedles',
         ];
     }
 
@@ -68,12 +161,10 @@ class Plugin extends PluginBase
      */
     public function registerPermissions()
     {
-        return []; // Remove this line to activate
-
         return [
-            'luketowers.apss.some_permission' => [
-                'tab' => 'APSS',
-                'label' => 'Some permission'
+            'luketowers.apss.manage_reports' => [
+                'tab' => 'Aids Program South Saskatchewan',
+                'label' => 'Manage reports'
             ],
         ];
     }
@@ -85,15 +176,20 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-        return []; // Remove this line to activate
-
         return [
-            'apss' => [
-                'label'       => 'APSS',
-                'url'         => Backend::url('luketowers/apss/mycontroller'),
-                'icon'        => 'icon-leaf',
+            'apss-reports' => [
+                'label'       => 'Needle Reports',
+                'url'         => Backend::url('luketowers/apss/needlereports'),
+                'icon'        => 'icon-flag',
                 'permissions' => ['luketowers.apss.*'],
-                'order'       => 500,
+                'order'       => 100,
+            ],
+            'apss-history' => [
+                'label'       => 'History',
+                'url'         => Backend::url('luketowers/apss/needlereports/history'),
+                'icon'        => 'icon-bar-chart',
+                'permissions' => ['luketowers.apss.*'],
+                'order'       => 105,
             ],
         ];
     }
