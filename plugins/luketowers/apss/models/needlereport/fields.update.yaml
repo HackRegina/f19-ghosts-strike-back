@@ -12,6 +12,12 @@ fields:
         required: true
         span: left
 
+    _btns:
+        label: Actions
+        type: partial
+        path: $/luketowers/apss/models/needlereport/field.btns.htm
+        span: right
+
 tabs:
     fields:
         _location:

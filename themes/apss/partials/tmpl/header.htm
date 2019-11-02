@@ -41,7 +41,7 @@
                 </header>
             </div>
 
-            {# {% set headerImage = 'assets/images/default-header.png' | theme %} #}
+            {% set headerImage = 'assets/images/default-header.jpg' | theme %}
             {% if this.page.featuredImage is not empty %}
                 {% set headerImage = this.page.featuredImage %}
             {% endif %}

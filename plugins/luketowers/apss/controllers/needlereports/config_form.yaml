@@ -22,7 +22,7 @@ create:
 
 # Update page
 update:
-    title: Edit Needle Report
+    title: Report
     redirect: luketowers/apss/needlereports
     redirectClose: luketowers/apss/needlereports
     form: $/luketowers/apss/models/needlereport/fields.update.yaml

@@ -100,21 +100,12 @@ class Plugin extends PluginBase
     public function registerNavigation()
     {
         return [
-            'apss' => [
-                'label'       => 'APSS',
+            'apss-reports' => [
+                'label'       => 'Needle Reports',
                 'url'         => Backend::url('luketowers/apss/needlereports'),
-                'icon'        => 'icon-leaf',
+                'icon'        => 'icon-flag',
                 'permissions' => ['luketowers.apss.*'],
-                'order'       => 500,
-                'sideMenu'    => [
-                    'needlereports' => [
-                        'label'       => 'APSS',
-                        'url'         => Backend::url('luketowers/apss/needlereports'),
-                        'icon'        => 'icon-flag',
-                        'permissions' => ['luketowers.apss.*'],
-                        'order'       => 500,
-                    ],
-                ],
+                'order'       => 100,
             ],
         ];
     }
