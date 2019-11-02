@@ -107,6 +107,13 @@ class Plugin extends PluginBase
                 'permissions' => ['luketowers.apss.*'],
                 'order'       => 100,
             ],
+            'apss-history' => [
+                'label'       => 'History',
+                'url'         => Backend::url('luketowers/apss/needlereports/history'),
+                'icon'        => 'icon-bar-chart',
+                'permissions' => ['luketowers.apss.*'],
+                'order'       => 105,
+            ],
         ];
     }
 }

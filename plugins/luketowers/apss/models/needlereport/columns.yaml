@@ -6,10 +6,14 @@ columns:
     created_at:
         label: Submitted at
         type: datetime
-    description:
-        label: Description
     status:
         label: Status
+    description:
+        label: Description
+    city:
+        label: City
+    province:
+        label: Province
     directions:
         label: Directions
         type: partial

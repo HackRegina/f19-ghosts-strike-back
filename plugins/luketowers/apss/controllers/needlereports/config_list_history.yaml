@@ -12,7 +12,7 @@ modelClass: LukeTowers\APSS\Models\NeedleReport
 title: Manage Needle Reports
 
 # Link URL for each record
-recordUrl: luketowers/apss/needlereports/update/:id
+recordUrl: luketowers/apss/needlereports/preview/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
@@ -30,9 +30,9 @@ showSetup: true
 showSorting: true
 
 # Default sorting column
-# defaultSort:
-#     column: created_at
-#     direction: desc
+defaultSort:
+    column: created_at
+    direction: desc
 
 # Display checkboxes next to each record
 showCheckboxes: true
@@ -40,8 +40,10 @@ showCheckboxes: true
 # Toolbar widget configuration
 toolbar:
     # Partial for toolbar buttons
-    buttons: list_toolbar
+    buttons: list_toolbar_history
 
     # Search widget configuration
     search:
         prompt: backend::lang.list.search_prompt
+
+filter: config_filter_history.yaml

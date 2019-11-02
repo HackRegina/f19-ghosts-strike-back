@@ -12,6 +12,10 @@ class CreateNeedleReportsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('status')->default('submitted');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->string('city')->nullable();
+            $table->string('province')->nullable();
             $table->text('description')->nullable();
             $table->text('data')->nullable();
             $table->string('ip_address');

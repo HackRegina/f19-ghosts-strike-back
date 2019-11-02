@@ -1,5 +1,7 @@
 <?php namespace LukeTowers\APSS\Controllers;
 
+use Flash;
+use Backend;
 use BackendMenu;
 use ApplicationException;
 use Backend\Classes\Controller;
@@ -17,7 +19,11 @@ class NeedleReports extends Controller
     ];
 
     public $formConfig = 'config_form.yaml';
-    public $listConfig = 'config_list.yaml';
+    public $listConfig = [
+        'index'   => 'config_list_index.yaml',
+        'history' => 'config_list_history.yaml'
+    ];
+
 
     public function __construct()
     {
@@ -43,10 +49,40 @@ class NeedleReports extends Controller
         }
 
         $report = NeedleReport::findOrFail($recordId);
+
+        $report->needles_collected = $needlesCollected;
+        $report->status = 'successful';
+        $report->save();
+
+        Flash::success("Completed report, logged $needlesCollected needles collected");
+
+        return Backend::redirect('luketowers/apss/needlereports');
     }
 
     public function update_onMarkUnsuccessful($recordId)
     {
         $report = NeedleReport::findOrFail($recordId);
+
+        $report->status = 'unsuccessful';
+        $report->save();
+
+        Flash::success("Marked report as unsuccessful");
+
+        return Backend::redirect('luketowers/apss/needlereports');
+    }
+
+    public function history()
+    {
+        BackendMenu::setContext('LukeTowers.APSS', 'apss-history');
+        return $this->asExtension('Backend.Behaviors.ListController')->index();
+    }
+
+    public function listExtendQuery($query, $definition)
+    {
+        if ($definition === 'index') {
+            return $query->where('status', 'submitted');
+        } else {
+            return $query->whereIn('status', ['successful', 'unsuccessful']);
+        }
     }
 }

@@ -16,7 +16,7 @@ defaultRedirect: luketowers/apss/needlereports
 
 # Create page
 create:
-    title: Create Needle Report
+    title: Create Report
     redirect: luketowers/apss/needlereports/update/:id
     redirectClose: luketowers/apss/needlereports
 
@@ -29,4 +29,5 @@ update:
 
 # Preview page
 preview:
-    title: Preview Needle Report
+    title: View Report
+    form: $/luketowers/apss/models/needlereport/fields.preview.yaml

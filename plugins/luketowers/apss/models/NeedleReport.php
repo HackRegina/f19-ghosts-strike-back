@@ -1,6 +1,8 @@
 <?php namespace LukeTowers\APSS\Models;
 
 use Model;
+use October\Rain\Network\Http;
+use RainLab\Location\Models\Setting;
 
 /**
  * NeedleReport Model
@@ -54,5 +56,52 @@ class NeedleReport extends Model
         $request = request();
         $this->ip_address = $request->ip();
         $this->data = array_merge($this->data, ['user_agent' => $request->header('User-Agent')]);
+
+        $lat = @$this->data['location']['lat'];
+        $lng = @$this->data['location']['lng'];
+        $city = '';
+        $province = '';
+
+        try {
+            $key = Setting::get('google_maps_key');
+            $request = Http::get("https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$key");
+            $result = json_decode($request->body);
+
+            if (!empty($result->results)) {
+                foreach ($result->results as $result) {
+                    foreach ($result->address_components as $component) {
+                        if (in_array('locality', $component->types)) {
+                            $city = $component->long_name;
+                        }
+                        if (in_array('administrative_area_level_1', $component->types)) {
+                            $province = $component->long_name;
+                        }
+
+                        if (!empty($city) && !empty($province)) {
+                            break 2;
+                        }
+                    }
+                }
+            }
+        } catch (\Exception $ex) {
+            throw $ex;
+        }
+
+        $this->latitude = $lat;
+        $this->longitude = $lng;
+        $this->city = $city;
+        $this->province = $province;
+    }
+
+    public function getCityOptions()
+    {
+        $options = static::lists('city');
+        return array_combine($options, $options);
+    }
+
+    public function getProvinceOptions()
+    {
+        $options = static::lists('province');
+        return array_combine($options, $options);
     }
 }
